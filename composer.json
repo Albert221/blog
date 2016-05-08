@@ -1,0 +1,44 @@
+{
+    "name": "albert221/blog",
+    "type": "library",
+    "description": "Blog engine",
+    "homepage": "https://github.com/Albert221/blog",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Albert Wolszon",
+            "email": "w.albert221@gmail.com",
+            "homepage": "http://albert221.net",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.5|~7.0",
+        "league/route": "^2.0",
+        "twig/twig": "^1.24",
+        "zendframework/zend-diactoros": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*",
+        "scrutinizer/ocular": "~1.1",
+        "squizlabs/php_codesniffer": "~2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Albert221\\Blog\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Albert221\\Blog\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
