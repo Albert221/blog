@@ -1,0 +1,47 @@
+.sidebar {
+	padding: 30px;
+
+	@media (max-width: $mobileWidth) {
+		padding-top: 0;
+	}
+
+	@media (min-width: $mobileWidth) {
+		flex-basis: 300px;
+		padding-left: 0;
+	}
+
+	section {
+		&:not(:first-child) {
+			margin-top: 30px;
+		}
+
+		h2 {
+			margin-bottom: 15px;
+			padding: 15px;
+			background: $primaryColor;
+			color: #fff;
+		}
+
+		.list {
+			list-style: none;
+
+			li {
+				padding: 10px 15px;
+
+				&:not(:first-child) {
+					border-top: 1px solid #ccc;
+				}
+			}
+		}
+
+		.tags {
+			list-style: none;
+			padding: 0 15px;
+			text-align: justify;
+
+			li {
+				display: inline;
+			}
+		}
+	}
+}

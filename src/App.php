@@ -2,16 +2,14 @@
 
 namespace Albert221\Blog;
 
-use Albert221\Blog\Controller\PostController;
-use Albert221\Blog\ServiceProvider\HttpServiceProvider;
-use Albert221\Blog\ServiceProvider\TwigServiceProvider;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use League\Route\RouteCollection;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Request;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\SapiEmitter;
-use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\Response\EmitterInterface;
 
 class App
 {
@@ -26,12 +24,24 @@ class App
         $this->container->delegate(new ReflectionContainer);
 
         $this->container->add('baseDir', dirname(__DIR__));
-        
-        $this->container->addServiceProvider(new HttpServiceProvider);
-        $this->container->addServiceProvider(new TwigServiceProvider);
 
-        $this->container->add(PostController::class)
-            ->withMethodCall('setTwig', ['twig']);
+        $this->loadConfig();
+        $this->loadServiceProviders();
+    }
+
+    private function loadConfig()
+    {
+        $this->container->add(
+            'config',
+            require $this->container->get('baseDir').'/config/config.php'
+        );
+    }
+
+    private function loadServiceProviders()
+    {
+        foreach ($this->container->get('config')['serviceProviders'] as $provider) {
+            $this->container->addServiceProvider($provider);
+        }
     }
 
     /**
@@ -40,13 +50,13 @@ class App
     public function run()
     {
         /** @var RouteCollection $route */
-        $route = $this->container->get('route');
-        /** @var ServerRequest $request */
-        $request = $this->container->get('request');
-        /** @var Response $response */
-        $response = $this->container->get('response');
-        /** @var SapiEmitter $emitter */
-        $emitter = $this->container->get('emitter');
+        $route = $this->container->get(RouteCollection::class);
+        /** @var ServerRequestInterface $request */
+        $request = $this->container->get(ServerRequestInterface::class);
+        /** @var ResponseInterface $response */
+        $response = $this->container->get(ResponseInterface::class);
+        /** @var EmitterInterface $emitter */
+        $emitter = $this->container->get(EmitterInterface::class);
 
         $response = $route->dispatch($request, $response);
 

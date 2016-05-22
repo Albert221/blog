@@ -1,0 +1,48 @@
+.newsletter {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	padding: 30px;
+	background: #f3f3f3;
+
+	@media (max-width: $mobileWidth) {
+		flex-direction: column;
+
+		h2 {
+			margin-bottom: 15px;
+		}
+	}
+
+	form {
+		display: flex;
+
+		label {
+			@extend %hidden;
+		}
+
+		[type="email"] {
+			flex-grow: 1;
+			border: 0;
+			padding: 15px 20px;
+			background: #fff;
+
+			@media (min-width: $mobileWidth) {
+				min-width: 300px;
+			}
+		}
+
+		[type="submit"] {
+			border: 0;
+			padding: 15px;
+			background: $primaryColor;
+			color: #fff;
+			font-weight: bold;
+			cursor: pointer;
+			transition: .2s all;
+
+			&:hover, &:focus {
+				background: darken($primaryColor, 15%);
+			}
+		}
+	}
+}

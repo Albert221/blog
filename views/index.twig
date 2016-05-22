@@ -1,1 +1,18 @@
-test
+{% extends 'layout.twig' %}
+
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <header>
+                <h2><a href="/{{ post.slug }}">{{ post.title|e }}</a></h2>
+                <time datetime="{{ post.published_at|date('Y-m-d\TH:i:sP') }}">{{ post.published_at|date('j F Y') }}</time> •
+                <a href="/kategoria/{{ post.category.slug }}">{{ post.category.name }}</a>
+            </header>
+            <div class="content">
+                {{ post.shortContent }}
+                <p><a href="/{{ post.slug }}" class="read-more">Czytaj dalej</a></p>
+            </div>
+        </article>
+    {% endfor %}
+    {{ paginator.render() }}
+{% endblock %}

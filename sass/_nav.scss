@@ -1,0 +1,38 @@
+.nav {
+	background: $primaryColor;
+
+	h2 {
+		@extend %hidden;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: row;
+		list-style: none;
+
+		@media (max-width: $mobileWidth) {
+			flex-direction: column;
+		}
+		
+		li {
+
+			&.spacer {
+				flex-grow: 1;
+			}
+
+			a {
+				display: block;
+				padding: 20px;
+				color: #fff;
+				font-weight: bold;
+				text-decoration: none;
+				text-align: center;
+				transition: .2s all;
+
+				&:hover, &:focus {
+					background: darken($primaryColor, 15%);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,53 @@
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background: url('imgs/header-background.jpg') center/cover;
+	color: #fff;
+
+	@media (max-width: $mobileWidth) {
+		flex-direction: column;
+	}
+
+	.site-title {
+		padding: 30px;
+
+		@media (max-width: $mobileWidth) {
+			padding-bottom: 0;
+		}
+	}
+
+	.search {
+		display: flex;
+		align-items: center;
+		padding: 30px;
+
+		label {
+			@extend %hidden;
+		}
+
+		[type="search"] {
+			flex-grow: 1;
+			border: 0;
+			padding: 15px 20px;
+
+			@media (min-width: $mobileWidth) {
+				min-width: 300px;
+			}
+		}
+
+		[type="submit"] {
+			border: 0;
+			padding: 15px;
+			background: $primaryColor;
+			color: #fff;
+			font-weight: bold;
+			cursor: pointer;
+			transition: .2s all;
+
+			&:hover, &:focus {
+				background: darken($primaryColor, 15%);
+			}
+		}
+	}
+}

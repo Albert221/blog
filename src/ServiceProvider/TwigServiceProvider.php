@@ -2,7 +2,7 @@
 
 namespace Albert221\Blog\ServiceProvider;
 
-use Albert221\Blog\Twig\TwigAwareInterface;
+use Albert221\Blog\Pagination\PaginatorBuilder;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
@@ -13,15 +13,9 @@ class TwigServiceProvider extends AbstractServiceProvider
      * {@inheritdoc}
      */
     protected $provides = [
-        'twig'
+        'twig',
+        'paginatorBuilder'
     ];
-
-    public function boot()
-    {
-//        $this->getContainer()
-//            ->inflector(TwigAwareInterface::class)
-//            ->invokeMethod('setTwig', ['twig']);
-    }
 
     /**
      * {@inheritdoc}
@@ -33,7 +27,16 @@ class TwigServiceProvider extends AbstractServiceProvider
                 $this->getContainer()->get('baseDir').'/views'
             );
             
-            return new Twig_Environment($loader);
+            return new Twig_Environment($loader, [
+                'autoescape' => false
+            ]);
+        });
+        
+        $this->getContainer()->share('paginatorBuilder', function () {
+            return new PaginatorBuilder(
+                $this->getContainer()->get('twig'),
+                $this->getContainer()->get('config')['pagination']['perPage']
+            );
         });
     }
 }

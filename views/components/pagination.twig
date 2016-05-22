@@ -1,0 +1,12 @@
+{% if pages > 1 %}
+    <nav class="pagination">
+        <h2>Strony</h2>
+        <ul>
+            {% if currentPage != 1 %}<li><a href="?page={{ currentPage - 1 }}" rel="prev">Poprzednia</a></li>{% endif %}
+            {% for i in currentPage - 2..currentPage + 2 if i >= 1 and i <= pages %}
+                <li><a href="?page={{ i }}"{% if i == currentPage %} class="active"{% endif %}>{{ i }}</a></li>
+            {% endfor %}
+            {% if currentPage != pages %}<li><a href="?page={{ currentPage + 1 }}" rel="next">Następna</a></li>{% endif %}
+        </ul>
+    </nav>
+{% endif %}

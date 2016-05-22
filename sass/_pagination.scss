@@ -1,0 +1,32 @@
+.pagination {
+  h2 {
+    @extend %hidden;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+
+    li {
+      a {
+        display: block;
+        padding: 15px;
+        background: $primaryColor;
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        transition: .2s all;
+
+        &:hover, &:focus {
+          background: darken($primaryColor, 15%);
+        }
+
+        &.active {
+          background: #fff;
+          color: $primaryColor;
+        }
+      }
+    }
+  }
+}

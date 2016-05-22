@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Blog Alberta</title>
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&amp;subset=latin-ext">
+    </head>
+    <body>
+        <header class="header">
+            <div class="site-title">
+                <h1>Blog Alberta</h1>
+                <p class="subtitle">Od poradników, przez recenzje do relacje.</p>
+            </div>
+            <form action="" method="get" class="search">
+                <label for="search">Szukana fraza</label>
+                <input type="search" id="search" placeholder="Co chcesz wyszukać..." required>
+                <input type="submit" value="Szukaj">
+            </form>
+        </header>
+        <nav class="nav">
+            <h2>Nawigacja</h2>
+            <ul>
+                <li><a href="/">Główna</a></li>
+                <li><a href="#">Poradniki</a></li>
+                <li><a href="#">Relacje</a></li>
+                <li><a href="#">O mnie</a></li>
+                <li><a href="#">Kontakt</a></li>
+                <li class="spacer" aria-hidden="true"></li>
+                <li><a href="#">RSS</a></li>
+            </ul>
+        </nav>
+        <div class="wrapper">
+            <main class="main">
+                {% block content %}{% endblock %}
+            </main>
+            {% include 'sidebar.twig' %}
+        </div>
+        <section class="newsletter">
+            <h2>Zapisz się do newslettera:</h2>
+            <form action="" method="post">
+                <label for="email">Adres email</label>
+                <input type="email" id="email" name="email" placeholder="Twój adres email" required>
+                <input type="submit" value="Zapisz się">
+            </form>
+        </section>
+        <footer class="footer">
+            <nav>
+                <div>
+                    <h2>Ostatnie posty</h2>
+                    <ul>
+                        <li><a href="#">Lorem ipsum dolor.</a></li>
+                        <li><a href="#">Enim, facilis eligendi.</a></li>
+                        <li><a href="#">Alias doloremque, assumenda.</a></li>
+                        <li><a href="#">Assumenda, cumque, omnis.</a></li>
+                        <li><a href="#">Culpa, distinctio, nostrum?</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Ostatnie komentarze</h2>
+                    <ul>
+                        <li><a href="#">Lorem.</a> w <a href="#">Lorem ipsum dolor.</a></li>
+                        <li><a href="#">Quas.</a> w <a href="#">Molestias in, quos!</a></li>
+                        <li><a href="#">Voluptas!</a> w <a href="#">Facere, fuga, maiores.</a></li>
+                        <li><a href="#">Ea!</a> w <a href="#">Placeat, commodi nesciunt.</a></li>
+                        <li><a href="#">Ducimus.</a> w <a href="#">Voluptas, facilis, dolor!</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Ostatnie kategorie</h2>
+                    <ul>
+                        <li><a href="#">Lorem ipsum.</a></li>
+                        <li><a href="#">Laborum, temporibus.</a></li>
+                        <li><a href="#">Cupiditate, molestias.</a></li>
+                        <li><a href="#">Consectetur, nesciunt!</a></li>
+                        <li><a href="#">Consequatur, animi!</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Polecane strony</h2>
+                    <ul>
+                        <li><a href="#">Lorem ipsum.</a></li>
+                        <li><a href="#">Amet, ipsam?</a></li>
+                        <li><a href="#">Animi, alias.</a></li>
+                        <li><a href="#">Sed, non.</a></li>
+                        <li><a href="#">Officiis, harum.</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <p class="foot">
+                <span>&copy; Albert Wolszon, 2016.</span>
+                <span>Powered by <a href="https://github.com/Albert221/blog">my own blog engine</a>.</span>
+            </p>
+        </footer>
+    </body>
+</html>

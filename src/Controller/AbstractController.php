@@ -2,9 +2,7 @@
 
 namespace Albert221\Blog\Controller;
 
-use Albert221\Blog\Twig\TwigAwareInterface;
-
-abstract class AbstractController implements TwigAwareInterface
+abstract class AbstractController
 {
     /**
      * @var \Twig_Environment Twig
@@ -12,7 +10,7 @@ abstract class AbstractController implements TwigAwareInterface
     protected $twig;
 
     /**
-     * {@inheritdoc}
+     * @param $twig \Twig_Environment
      */
     public function setTwig($twig)
     {
@@ -21,7 +19,7 @@ abstract class AbstractController implements TwigAwareInterface
 
     /**
      * @param string $name View name
-     * @param array $data Data sent to view
+     * @param array  $data Data sent to view
      *
      * @return string
      */

@@ -1,0 +1,45 @@
+.footer {
+	padding: 30px;
+	background: $primaryColor;
+	color: #fff;
+
+	a {
+		border-bottom: 1px solid #999;
+		color: #fff;
+
+		&:hover {
+			border-color: #fff;
+			text-decoration: none;
+		}
+		}
+
+	nav {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		@media (max-width: $mobileWidth) {
+			flex-wrap: wrap;
+
+			> div:not(:first-child) {
+				margin-top: 15px;
+			}
+		}
+
+		h2 {
+			margin-bottom: 5px;
+		}
+
+		ul, ol {
+			list-style: inside square;
+			font-size: 14px;
+			color: #eee;
+		}
+	}
+
+	.foot {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 30px;
+	}
+}

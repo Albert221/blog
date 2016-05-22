@@ -1,0 +1,14 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <article class="post">
+        <header>
+            <h2>{{ post.title|e }}</h2>
+            <time datetime="{{ post.published_at|date('Y-m-d\TH:i:sP') }}">{{ post.published_at|date('j F Y') }}</time> •
+            <a href="/kategoria/{{ post.category.slug }}">{{ post.category.name }}</a>
+        </header>
+        <div class="content">
+            {{ post.content }}
+        </div>
+    </article>
+{% endblock %}

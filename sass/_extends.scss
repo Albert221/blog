@@ -1,0 +1,12 @@
+%hidden {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+}
+
+%clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
