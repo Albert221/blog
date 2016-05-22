@@ -2,17 +2,16 @@
 
 namespace Albert221\Blog\Controller;
 
+use Twig_Environment;
+
 abstract class AbstractController
 {
     /**
-     * @var \Twig_Environment Twig
+     * @var Twig_Environment Twig
      */
     protected $twig;
 
-    /**
-     * @param $twig \Twig_Environment
-     */
-    public function setTwig($twig)
+    public function __construct(Twig_Environment $twig)
     {
         $this->twig = $twig;
     }

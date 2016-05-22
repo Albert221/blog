@@ -7,8 +7,6 @@
 	}
 
 	article {
-		@extend %clearfix;
-
 		header {
 			margin-bottom: 15px;
 			color: #999;
@@ -31,6 +29,7 @@
 		}
 
 		.content {
+			@extend %clearfix;
 			font-size: 16px;
 
 			*:not(:first-child):not(li):not(.gist-meta) {
@@ -82,6 +81,26 @@
 
 				&:hover, &:focus {
 					background: darken($primaryColor, 15%);
+				}
+			}
+		}
+
+		.tags {
+			h2 {
+				margin: 15px 0;
+			}
+
+			ul {
+				list-style: none;
+
+				li {
+					display: inline;
+
+					a {
+						&:before {
+							content: "#";
+						}
+					}
 				}
 			}
 		}

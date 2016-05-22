@@ -1,0 +1,18 @@
+<nav>
+    {% for widget in footerWidgets %}
+        <div>
+            <h2>{{ widget.name }}</h2>
+            {{ widget.html }}
+        </div>
+    {% endfor %}
+    <div>
+        <h2>Ostatnie komentarze</h2>
+        <ul>
+            <li><a href="#">Lorem.</a> w <a href="#">Lorem ipsum dolor.</a></li>
+            <li><a href="#">Quas.</a> w <a href="#">Molestias in, quos!</a></li>
+            <li><a href="#">Voluptas!</a> w <a href="#">Facere, fuga, maiores.</a></li>
+            <li><a href="#">Ea!</a> w <a href="#">Placeat, commodi nesciunt.</a></li>
+            <li><a href="#">Ducimus.</a> w <a href="#">Voluptas, facilis, dolor!</a></li>
+        </ul>
+    </div>
+</nav>

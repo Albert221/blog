@@ -2,12 +2,10 @@
 
 namespace Albert221\Blog\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
- * @Entity(repositoryClass="\Albert221\Blog\Repository\Database\CategoryRepository") @Table(name="categories")
+ * @Entity(repositoryClass="\Albert221\Blog\Repository\Database\TagRepository") @Table(name="tags")
  */
-class Category
+class Tag
 {
     /**
      * @var int Id
@@ -26,17 +24,6 @@ class Category
      * @Column(type="string", unique=true)
      */
     protected $slug;
-
-    /**
-     * @var ArrayCollection Posts
-     * @OneToMany(targetEntity="Post", mappedBy="category")
-     */
-    protected $posts;
-
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection;
-    }
 
     public function getId()
     {

@@ -5,6 +5,7 @@ namespace Albert221\Blog\ServiceProvider;
 use Albert221\Blog\Controller\PostController;
 use Albert221\Blog\Repository\CategoryRepositoryInterface;
 use Albert221\Blog\Repository\PostRepositoryInterface;
+use Albert221\Blog\Repository\TagRepositoryInterface;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use League\Route\RouteCollection;
 use Psr\Http\Message\ResponseInterface;
@@ -50,7 +51,8 @@ class HttpServiceProvider extends AbstractServiceProvider
         $this->getContainer()->add(PostController::class)
             ->withArgument(PostRepositoryInterface::class)
             ->withArgument(CategoryRepositoryInterface::class)
+            ->withArgument(TagRepositoryInterface::class)
             ->withArgument('paginatorBuilder')
-            ->withMethodCall('setTwig', ['twig']);
+            ->withArgument('twig');
     }
 }

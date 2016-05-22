@@ -3,9 +3,10 @@
 namespace Albert221\Blog\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @Entity(repositoryClass="\Albert221\Blog\Repository\DatabasePostRepository") @Table(name="posts")
+ * @Entity(repositoryClass="\Albert221\Blog\Repository\Database\PostRepository") @Table(name="posts")
  */
 class Post
 {
@@ -44,6 +45,17 @@ class Post
      * @ManyToOne(targetEntity="Category", inversedBy="posts")
      */
     protected $category;
+
+    /**
+     * @var ArrayCollection Tags
+     * @ManyToMany(targetEntity="Tag", cascade={"persist"})
+     */
+    protected $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection;
+    }
 
     public function getId()
     {
@@ -103,5 +115,15 @@ class Post
     public function getCategory()
     {
         return $this->category;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag)
+    {
+        $this->tags[] = $tag;
     }
 }

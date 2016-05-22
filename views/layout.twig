@@ -35,7 +35,7 @@
             <main class="main">
                 {% block content %}{% endblock %}
             </main>
-            {% include 'sidebar.twig' %}
+            {% include 'parts/sidebar.twig' %}
         </div>
         <section class="newsletter">
             <h2>Zapisz się do newslettera:</h2>
@@ -46,48 +46,7 @@
             </form>
         </section>
         <footer class="footer">
-            <nav>
-                <div>
-                    <h2>Ostatnie posty</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor.</a></li>
-                        <li><a href="#">Enim, facilis eligendi.</a></li>
-                        <li><a href="#">Alias doloremque, assumenda.</a></li>
-                        <li><a href="#">Assumenda, cumque, omnis.</a></li>
-                        <li><a href="#">Culpa, distinctio, nostrum?</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>Ostatnie komentarze</h2>
-                    <ul>
-                        <li><a href="#">Lorem.</a> w <a href="#">Lorem ipsum dolor.</a></li>
-                        <li><a href="#">Quas.</a> w <a href="#">Molestias in, quos!</a></li>
-                        <li><a href="#">Voluptas!</a> w <a href="#">Facere, fuga, maiores.</a></li>
-                        <li><a href="#">Ea!</a> w <a href="#">Placeat, commodi nesciunt.</a></li>
-                        <li><a href="#">Ducimus.</a> w <a href="#">Voluptas, facilis, dolor!</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>Ostatnie kategorie</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum.</a></li>
-                        <li><a href="#">Laborum, temporibus.</a></li>
-                        <li><a href="#">Cupiditate, molestias.</a></li>
-                        <li><a href="#">Consectetur, nesciunt!</a></li>
-                        <li><a href="#">Consequatur, animi!</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>Polecane strony</h2>
-                    <ul>
-                        <li><a href="#">Lorem ipsum.</a></li>
-                        <li><a href="#">Amet, ipsam?</a></li>
-                        <li><a href="#">Animi, alias.</a></li>
-                        <li><a href="#">Sed, non.</a></li>
-                        <li><a href="#">Officiis, harum.</a></li>
-                    </ul>
-                </div>
-            </nav>
+            {% include 'parts/footer.twig' %}
             <p class="foot">
                 <span>&copy; Albert Wolszon, 2016.</span>
                 <span>Powered by <a href="https://github.com/Albert221/blog">my own blog engine</a>.</span>

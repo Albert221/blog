@@ -10,5 +10,15 @@
         <div class="content">
             {{ post.content }}
         </div>
+        <aside class="tags">
+            <h2>Tagi</h2>
+            <ul>
+                {% for tag in post.tags %}
+                    <li><a href="/tag/{{ tag.slug }}" rel="tag">{{ tag.name }}</a></li>
+                {% else %}
+                    <li>Ten post nie ma tagów</li>
+                {% endfor %}
+            </ul>
+        </aside>
     </article>
 {% endblock %}
