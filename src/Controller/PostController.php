@@ -68,7 +68,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * Route: /
+     * /
      *
      * @param  ServerRequestInterface $request
      *
@@ -80,14 +80,11 @@ class PostController extends AbstractController
 
         $posts = $this->posts->paginated($paginator->getPage(), $paginator->getPerPage());
 
-        return $this->view('index.twig', [
-            'posts' => $posts,
-            'paginator' => $paginator
-        ]);
+        return $this->view('index.twig', compact('posts', 'paginator'));
     }
 
     /**
-     * Route: /{slug}
+     * /{slug}
      *
      * @param string $slug
      * @return string
@@ -105,7 +102,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * Route: /kategoria/{slug}
+     * /kategoria/{slug}
      *
      * @param ServerRequestInterface $request
      * @param string $slug
@@ -121,6 +118,8 @@ class PostController extends AbstractController
     }
 
     /**
+     * /tag/{slug}
+     *
      * @param ServerRequestInterface $request
      * @param string $slug
      * @return string

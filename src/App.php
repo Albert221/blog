@@ -2,9 +2,9 @@
 
 namespace Albert221\Blog;
 
+use Albert221\Blog\Route\RouteCollection;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
-use League\Route\RouteCollection;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Request;
