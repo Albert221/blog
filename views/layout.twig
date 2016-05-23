@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width">
         <title>Blog Alberta</title>
         <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&amp;subset=latin-ext">
     </head>
     <body>
         <header class="header">
@@ -13,7 +12,7 @@
                 <h1>Blog Alberta</h1>
                 <p class="subtitle">Od poradników, przez recenzje do relacje.</p>
             </div>
-            <form action="" method="get" class="search">
+            <form action="?" method="get" class="search">
                 <label for="search">Szukana fraza</label>
                 <input type="search" id="search" placeholder="Co chcesz wyszukać..." required>
                 <input type="submit" value="Szukaj">
@@ -39,7 +38,7 @@
         </div>
         <section class="newsletter">
             <h2>Zapisz się do newslettera:</h2>
-            <form action="" method="post">
+            <form action="?" method="post">
                 <label for="email">Adres email</label>
                 <input type="email" id="email" name="email" placeholder="Twój adres email" required>
                 <input type="submit" value="Zapisz się">
@@ -52,5 +51,13 @@
                 <span>Powered by <a href="https://github.com/Albert221/blog">my own blog engine</a>.</span>
             </p>
         </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ['Open Sans:400,700,400italic,700italic:latin-ext']
+                }
+            });
+        </script>
     </body>
 </html>
