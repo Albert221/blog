@@ -11,6 +11,7 @@ use Albert221\Blog\Sidebar\Widget\RecentCategories;
 use Albert221\Blog\Sidebar\Widget\RecentPosts;
 use Albert221\Blog\Sidebar\Widget\TagCloud;
 use Albert221\Blog\Sidebar\WidgetManager;
+use League\Route\Http\Exception\NotFoundException;
 use Psr\Http\Message\ServerRequestInterface;
 use Twig_Environment;
 use Zend\Diactoros\Request;
@@ -90,10 +91,15 @@ class PostController extends AbstractController
      *
      * @param string $slug
      * @return string
+     * @throws NotFoundException when post does not exist
      */
     public function post($slug)
     {
         $post = $this->posts->bySlug($slug);
+
+        if (!$post) {
+            throw new NotFoundException('Post has not been found');
+        }
         
         return $this->view('post.twig', compact('post'));
     }

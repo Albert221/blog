@@ -18,7 +18,8 @@ class PaginatorBuilder
 
     public function build(ServerRequestInterface $request, $count)
     {
-        $page = isset($request->getQueryParams()['page']) ? $request->getQueryParams()['page'] : 1;
+        $page = isset($request->getQueryParams()['page']) &&
+            ($page = $request->getQueryParams()['page'] > 0) ? $page : 1;
         
         return new Paginator(
             $page,
