@@ -76,6 +76,10 @@ class PostController extends AbstractController
      */
     public function index(ServerRequestInterface $request)
     {
+        if (isset($request->getQueryParams()['q'])) {
+            return $this->search($request, $request->getQueryParams()['q']);
+        }
+
         $paginator = $this->paginatorBuilder->build($request, $this->posts->count());
 
         $posts = $this->posts->paginated($paginator->getPage(), $paginator->getPerPage());
@@ -114,7 +118,11 @@ class PostController extends AbstractController
 
         $posts = $this->posts->byCategory($slug, $paginator->getPage(), $paginator->getPerPage());
 
-        return $this->view('index.twig', compact('posts', 'paginator'));
+        return $this->view('index.twig', [
+            'posts' => $posts,
+            'paginator' => $paginator,
+            'title' => 'Posty w kategorii \''.$posts[0]->getCategory()->getName().'\''
+        ]);
     }
 
     /**
@@ -130,6 +138,31 @@ class PostController extends AbstractController
 
         $posts = $this->posts->byTag($slug, $paginator->getPage(), $paginator->getPerPage());
 
-        return $this->view('index.twig', compact('posts', 'paginator'));
+        return $this->view('index.twig', [
+            'posts' => $posts,
+            'paginator' => $paginator,
+            'title' => 'Posty otagowane \''.$slug.'\''
+        ]);
+    }
+
+    /**
+     * /?q={term}
+     *
+     * @param ServerRequestInterface $request
+     * @param string $term
+     * @return string
+     */
+    public function search(ServerRequestInterface $request, $term)
+    {
+        $paginator = $this->paginatorBuilder->build($request, $this->posts->searchCount($term));
+
+        $posts = $this->posts->search($term, $paginator->getPage(), $paginator->getPerPage());
+
+        return $this->view('index.twig', [
+            'posts' => $posts,
+            'paginator' => $paginator,
+            'title' => 'Wyniki wyszukiwania dla \''.$term.'\'',
+            'searchTerm' => $term
+        ]);
     }
 }

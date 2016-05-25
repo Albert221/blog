@@ -1,6 +1,9 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
+    {% if title is defined %}
+        <h2>{{ title }}</h2>
+    {% endif %}
     {% for post in posts %}
         <article class="post">
             <header>

@@ -26,7 +26,7 @@ class Route extends LeagueRoute
                 is_scalar($middleware) ? gettype($middleware) : get_class($middleware)
             ));
         }
-            $this->middleware = $middleware;
+        $this->middleware = $middleware;
 
         return $this;
     }

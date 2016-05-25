@@ -18,7 +18,8 @@
         "twig/twig": "^1.24",
         "zendframework/zend-diactoros": "^1.3",
         "doctrine/orm": "^2.5",
-        "filp/whoops": "2.*"
+        "filp/whoops": "2.*",
+        "beberlei/DoctrineExtensions": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.*",

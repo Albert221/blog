@@ -108,7 +108,51 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
             ->getQuery();
 
         return $query->getResult();
-        
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function searchCount($term)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->where('MATCH (p.title, p.content) AGAINST (:term EXPAND) > 1')
+            ->setParameter(':term', $term)
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function search($term, $page, $perPage)
+    {
+        $first = ($page - 1) * $perPage;
+
+        $query = $this->createQueryBuilder('p')
+            ->select(
+                'p as post',
+                'MATCH (p.title) AGAINST (:term) as title_relevance',
+                'MATCH (p.title, p.content) AGAINST (:term EXPAND) as relevance'
+            )
+            ->where('MATCH (p.title, p.content) AGAINST (:term EXPAND) > 1')
+            ->orderBy('title_relevance', 'DESC')
+            ->addOrderBy('relevance', 'DESC')
+            ->setParameter(':term', $term)
+            ->setFirstResult($first)
+            ->setMaxResults($perPage)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        // because we don't want an array of post and relevances, a post only
+        array_walk($result, function (&$value) {
+            $value = $value['post'];
+        });
+
+        return $result;
     }
 
     /**

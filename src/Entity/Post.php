@@ -6,7 +6,11 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @Entity(repositoryClass="\Albert221\Blog\Repository\Database\PostRepository") @Table(name="posts")
+ * @Entity(repositoryClass="\Albert221\Blog\Repository\Database\PostRepository")
+ * @Table(name="posts", indexes={
+ *     @Index(columns={"title"}, flags={"fulltext"}),
+ *     @Index(columns={"title","content"}, flags={"fulltext"})
+ * })
  */
 class Post
 {

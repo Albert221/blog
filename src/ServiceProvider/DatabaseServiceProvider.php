@@ -10,6 +10,7 @@ use Albert221\Blog\Repository\PostRepositoryInterface;
 use Albert221\Blog\Repository\TagRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use DoctrineExtensions\Query\Mysql\MatchAgainst;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 
 class DatabaseServiceProvider extends AbstractServiceProvider
@@ -33,6 +34,7 @@ class DatabaseServiceProvider extends AbstractServiceProvider
                 [dirname(__DIR__)],
                 $this->getContainer()->get('config')['debug']
             );
+            $config->addCustomStringFunction('MATCH', MatchAgainst::class);
 
             return EntityManager::create([
                 'dbname' => 'blog',

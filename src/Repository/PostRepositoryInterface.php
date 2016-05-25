@@ -53,6 +53,22 @@ interface PostRepositoryInterface
     public function byTag($slug, $page, $perPage);
 
     /**
+     * @param string $term
+     * @return int
+     */
+    public function searchCount($term);
+
+    /**
+     * Searches for term in title and content respectively.
+     *
+     * @param string $term
+     * @param int $page
+     * @param int $perPage
+     * @return Post[]
+     */
+    public function search($term, $page, $perPage);
+
+    /**
      * @param Post $post
      */
     public function save(Post $post);

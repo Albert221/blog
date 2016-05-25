@@ -12,9 +12,9 @@
                 <h1>Blog Alberta</h1>
                 <p class="subtitle">Od poradników, przez recenzje do relacje.</p>
             </div>
-            <form action="?" method="get" class="search">
+            <form action="/" method="get" class="search">
                 <label for="search">Szukana fraza</label>
-                <input type="search" id="search" placeholder="Co chcesz wyszukać..." required>
+                <input type="search" id="search" name="q" placeholder="Co chcesz wyszukać..." value="{{ searchTerm|e }}" required>
                 <input type="submit" value="Szukaj">
             </form>
         </header>
