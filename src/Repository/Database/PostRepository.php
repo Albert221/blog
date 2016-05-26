@@ -28,6 +28,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
         $first = ($page - 1) * $perPage;
 
         $query = $this->createQueryBuilder('p')
+            ->orderBy('p.published_at', 'DESC')
             ->setFirstResult($first)
             ->setMaxResults($perPage)
             ->getQuery();
@@ -71,6 +72,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
         $query = $qb->join('p.category', 'c')
             ->where($qb->expr()->eq('c.slug', ':category'))
             ->setParameter(':category', $slug)
+            ->orderBy('p.published_at', 'DESC')
             ->setFirstResult($first)
             ->setMaxResults($perPage)
             ->getQuery();
@@ -103,6 +105,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
         $query = $qb->join('p.tags', 't')
             ->where($qb->expr()->eq('t.slug', ':tag'))
             ->setParameter(':tag', $slug)
+            ->orderBy('p.published_at', 'DESC')
             ->setFirstResult($first)
             ->setMaxResults($perPage)
             ->getQuery();
