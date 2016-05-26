@@ -120,7 +120,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
     {
         $query = $this->createQueryBuilder('p')
             ->select('COUNT(p.id)')
-            ->where('MATCH (p.title, p.content) AGAINST (:term EXPAND) > 1')
+            ->where('MATCH (p.title, p.content) AGAINST (:term) > 1')
             ->setParameter(':term', $term)
             ->getQuery();
 
@@ -138,9 +138,9 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
             ->select(
                 'p as post',
                 'MATCH (p.title) AGAINST (:term) as title_relevance',
-                'MATCH (p.title, p.content) AGAINST (:term EXPAND) as relevance'
+                'MATCH (p.title, p.content) AGAINST (:term) as relevance'
             )
-            ->where('MATCH (p.title, p.content) AGAINST (:term EXPAND) > 1')
+            ->where('MATCH (p.title, p.content) AGAINST (:term) > 1')
             ->orderBy('title_relevance', 'DESC')
             ->addOrderBy('relevance', 'DESC')
             ->setParameter(':term', $term)
