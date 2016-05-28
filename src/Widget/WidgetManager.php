@@ -1,8 +1,6 @@
 <?php
 
-namespace Albert221\Blog\Sidebar;
-
-use Albert221\Blog\Sidebar\Widget\WidgetInterface;
+namespace Albert221\Blog\Widget;
 
 class WidgetManager
 {

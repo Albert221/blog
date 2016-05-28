@@ -1,6 +1,6 @@
 <?php
 
-namespace Albert221\Blog\Sidebar\Widget;
+namespace Albert221\Blog\Widget;
 
 use Albert221\Blog\Repository\PostRepositoryInterface;
 use Twig_Environment;
@@ -31,7 +31,7 @@ class RecentPosts implements WidgetInterface
 
     public function getName()
     {
-        return 'Najnowsze posty';
+        return 'Ostatnie posty';
     }
 
     public function getHTML()

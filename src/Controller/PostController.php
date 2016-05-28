@@ -3,30 +3,17 @@
 namespace Albert221\Blog\Controller;
 
 use Albert221\Blog\Pagination\PaginatorBuilder;
-use Albert221\Blog\Repository\CategoryRepositoryInterface;
 use Albert221\Blog\Repository\PostRepositoryInterface;
-use Albert221\Blog\Repository\TagRepositoryInterface;
-use Albert221\Blog\Sidebar\Widget\HTML;
-use Albert221\Blog\Sidebar\Widget\RecentCategories;
-use Albert221\Blog\Sidebar\Widget\RecentPosts;
-use Albert221\Blog\Sidebar\Widget\TagCloud;
-use Albert221\Blog\Sidebar\WidgetManager;
 use League\Route\Http\Exception\NotFoundException;
 use Psr\Http\Message\ServerRequestInterface;
-use Twig_Environment;
 use Zend\Diactoros\Request;
 
-class PostController extends AbstractController
+class PostController extends AbstractWidgetController
 {
     /**
      * @var PostRepositoryInterface Posts
      */
     protected $posts;
-
-    /**
-     * @var CategoryRepositoryInterface Categories
-     */
-    protected $categories;
 
     /**
      * @var PaginatorBuilder Paginator builder
@@ -35,36 +22,10 @@ class PostController extends AbstractController
 
     public function __construct(
         PostRepositoryInterface $posts,
-        CategoryRepositoryInterface $categories,
-        TagRepositoryInterface $tags,
-        PaginatorBuilder $paginatorBuilder,
-        Twig_Environment $twig
+        PaginatorBuilder $paginatorBuilder
     ) {
-        parent::__construct($twig);
-        
         $this->posts = $posts;
-        $this->categories = $categories;
         $this->paginatorBuilder = $paginatorBuilder;
-
-        // TODO: Find a better place for everything below.
-
-        $sidebarWidgetManager = new WidgetManager();
-        $sidebarWidgetManager->add(new RecentPosts($this->posts, $twig, 10));
-        $sidebarWidgetManager->add(new TagCloud($tags, $twig));
-
-        $footerWidgetManager = new WidgetManager();
-        $footerWidgetManager->add(new RecentPosts($this->posts, $twig, 5));
-        $footerWidgetManager->add(new RecentCategories($this->categories, $twig, 5));
-        $footerWidgetManager->add(new HTML('Polecane strony', '<ul>
-            <li><a href="#">Lorem ipsum.</a></li>
-            <li><a href="#">Amet, ipsam?</a></li>
-            <li><a href="#">Animi, alias.</a></li>
-            <li><a href="#">Sed, non.</a></li>
-            <li><a href="#">Officiis, harum.</a></li>
-        </ul>'));
-
-        $this->twig->addGlobal('sidebarWidgets', $sidebarWidgetManager->getWidgets());
-        $this->twig->addGlobal('footerWidgets', $footerWidgetManager->getWidgets());
     }
 
     /**
@@ -76,6 +37,8 @@ class PostController extends AbstractController
      */
     public function index(ServerRequestInterface $request)
     {
+        $this->provideWidgets();
+
         if (isset($request->getQueryParams()['q'])) {
             return $this->search($request, $request->getQueryParams()['q']);
         }
@@ -96,6 +59,8 @@ class PostController extends AbstractController
      */
     public function post($slug)
     {
+        $this->provideWidgets();
+
         $post = $this->posts->bySlug($slug);
 
         if (!$post) {
@@ -114,6 +79,8 @@ class PostController extends AbstractController
      */
     public function category(ServerRequestInterface $request, $slug)
     {
+        $this->provideWidgets();
+
         $paginator = $this->paginatorBuilder->build($request, $this->posts->byCategoryCount($slug));
 
         $posts = $this->posts->byCategory($slug, $paginator->getPage(), $paginator->getPerPage());
@@ -134,6 +101,8 @@ class PostController extends AbstractController
      */
     public function tag(ServerRequestInterface $request, $slug)
     {
+        $this->provideWidgets();
+
         $paginator = $this->paginatorBuilder->build($request, $this->posts->byTagCount($slug));
 
         $posts = $this->posts->byTag($slug, $paginator->getPage(), $paginator->getPerPage());

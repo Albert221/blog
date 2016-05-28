@@ -2,20 +2,37 @@
 
 namespace Albert221\Blog\ServiceProvider;
 
+use Albert221\Blog\Controller\AbstractController;
+use Albert221\Blog\Controller\AbstractWidgetController;
 use Albert221\Blog\Pagination\PaginatorBuilder;
+use Albert221\Blog\Repository\CategoryRepositoryInterface;
+use Albert221\Blog\Repository\PostRepositoryInterface;
+use Albert221\Blog\Repository\TagRepositoryInterface;
+use Albert221\Blog\Widget\TwigWidgetExtension;
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-class TwigServiceProvider extends AbstractServiceProvider
+class TwigServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     /**
      * {@inheritdoc}
      */
     protected $provides = [
         'twig',
+        'twigWidgetExtension',
         'paginatorBuilder'
     ];
+
+    public function boot()
+    {
+        $this->getContainer()->inflector(AbstractController::class)
+            ->invokeMethod('setTwig', ['twig']);
+
+        $this->getContainer()->inflector(AbstractWidgetController::class)
+            ->invokeMethod('setWidgetExtension', ['twigWidgetExtension']);
+    }
 
     /**
      * {@inheritdoc}
@@ -26,10 +43,25 @@ class TwigServiceProvider extends AbstractServiceProvider
             $loader = new Twig_Loader_Filesystem(
                 $this->getContainer()->get('baseDir').'/views'
             );
-            
-            return new Twig_Environment($loader, [
+
+            $config = [
                 'autoescape' => false
-            ]);
+            ];
+
+            if (!$this->getContainer()->get('config')['debug']) {
+                $config['cache'] = sprintf('%s/cache/twig', $this->getContainer()->get('baseDir'));
+            }
+
+            return new Twig_Environment($loader, $config);
+        });
+        
+        $this->getContainer()->share('twigWidgetExtension', function () {
+            return new TwigWidgetExtension(
+                $this->getContainer()->get('twig'),
+                $this->getContainer()->get(PostRepositoryInterface::class),
+                $this->getContainer()->get(CategoryRepositoryInterface::class),
+                $this->getContainer()->get(TagRepositoryInterface::class)
+            );
         });
         
         $this->getContainer()->share('paginatorBuilder', function () {

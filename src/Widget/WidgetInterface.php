@@ -1,6 +1,6 @@
 <?php
 
-namespace Albert221\Blog\Sidebar\Widget;
+namespace Albert221\Blog\Widget;
 
 interface WidgetInterface
 {

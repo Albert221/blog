@@ -21,7 +21,8 @@ class DatabaseServiceProvider extends AbstractServiceProvider
     protected $provides = [
         'entityManager',
         PostRepositoryInterface::class,
-        CategoryRepositoryInterface::class
+        CategoryRepositoryInterface::class,
+        TagRepositoryInterface::class
     ];
 
     /**

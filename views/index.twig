@@ -16,6 +16,8 @@
                 <p><a href="/{{ post.slug }}" class="read-more">Czytaj dalej</a></p>
             </div>
         </article>
+    {% else %}
+        <p>Nie znaleziono żadnych postów :(</p>
     {% endfor %}
     {{ paginator.render() }}
 {% endblock %}

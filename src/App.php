@@ -5,6 +5,7 @@ namespace Albert221\Blog;
 use Albert221\Blog\Route\RouteCollection;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use League\Route\Http\Exception\NotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Request;
@@ -58,7 +59,11 @@ class App
         /** @var EmitterInterface $emitter */
         $emitter = $this->container->get(EmitterInterface::class);
 
-        $response = $route->dispatch($request, $response);
+        try {
+            $response = $route->dispatch($request, $response);
+        } catch (NotFoundException $e) {
+            $response = new Response\RedirectResponse('/404');
+        }
 
         $emitter->emit($response);
     }

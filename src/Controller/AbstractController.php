@@ -11,7 +11,10 @@ abstract class AbstractController
      */
     protected $twig;
 
-    public function __construct(Twig_Environment $twig)
+    /**
+     * {@inheritdoc}
+     */
+    public function setTwig(Twig_Environment $twig)
     {
         $this->twig = $twig;
     }
