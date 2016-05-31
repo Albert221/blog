@@ -36,7 +36,7 @@ class RecentCategories implements WidgetInterface
 
     public function getHTML()
     {
-        $categories = $this->categories->lastCategories($this->count);
+        $categories = $this->categories->last($this->count);
 
         return $this->twig->render('widgets/recent_categories.twig', compact('categories'));
     }

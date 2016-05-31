@@ -52,7 +52,7 @@ class Post
 
     /**
      * @var ArrayCollection Tags
-     * @ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ManyToMany(targetEntity="Tag", inversedBy="posts", cascade={"persist"})
      */
     protected $tags;
 

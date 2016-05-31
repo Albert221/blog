@@ -22,5 +22,5 @@ interface CategoryRepositoryInterface
      * @param int $count
      * @return Category[]
      */
-    public function lastCategories($count);
+    public function last($count);
 }

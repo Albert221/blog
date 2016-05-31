@@ -28,7 +28,7 @@ class CategoryRepository extends EntityRepository implements CategoryRepositoryI
         return $query->getResult();
     }
 
-    public function lastCategories($count)
+    public function last($count)
     {
         $query = $this->createQueryBuilder('c')
             ->join('c.posts', 'p')

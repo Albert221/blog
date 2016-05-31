@@ -2,6 +2,8 @@
 
 namespace Albert221\Blog\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * @Entity(repositoryClass="\Albert221\Blog\Repository\Database\TagRepository") @Table(name="tags")
  */
@@ -24,6 +26,17 @@ class Tag
      * @Column(type="string", unique=true)
      */
     protected $slug;
+
+    /**
+     * @var ArrayCollection Posts
+     * @ManyToMany(targetEntity="Post", mappedBy="tags")
+     */
+    protected $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection;
+    }
 
     public function getId()
     {
@@ -48,5 +61,10 @@ class Tag
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

@@ -1,5 +1,6 @@
 .nav {
 	background: $primaryColor;
+	line-height: 60px;
 
 	h2 {
 		@extend %hidden;
@@ -22,7 +23,7 @@
 
 			a {
 				display: block;
-				padding: 20px;
+				padding: 0 20px;
 				color: #fff;
 				font-weight: bold;
 				text-decoration: none;
@@ -31,6 +32,13 @@
 
 				&:hover, &:focus {
 					background: darken($primaryColor, 15%);
+				}
+
+				&.home {
+					@extend .fa, .fa-home, .fa-2x;
+					display: block;
+					vertical-align: bottom;
+					line-height: 60px;
 				}
 			}
 		}

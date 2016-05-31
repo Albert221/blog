@@ -48,7 +48,6 @@ class HttpServiceProvider extends AbstractServiceProvider
 
         $this->getContainer()->add(PostController::class)
             ->withArgument(PostRepositoryInterface::class)
-            ->withArgument('paginatorBuilder')
-            ->withArgument('twigWidgetExtension');
+            ->withArgument('paginatorBuilder');
     }
 }
