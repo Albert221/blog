@@ -4,9 +4,11 @@ namespace Albert221\Blog\ServiceProvider;
 
 use Albert221\Blog\Entity\Category;
 use Albert221\Blog\Entity\Post;
+use Albert221\Blog\Entity\Setting;
 use Albert221\Blog\Entity\Tag;
 use Albert221\Blog\Repository\CategoryRepositoryInterface;
 use Albert221\Blog\Repository\PostRepositoryInterface;
+use Albert221\Blog\Repository\SettingRepositoryInterface;
 use Albert221\Blog\Repository\TagRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -22,7 +24,8 @@ class DatabaseServiceProvider extends AbstractServiceProvider
         'entityManager',
         PostRepositoryInterface::class,
         CategoryRepositoryInterface::class,
-        TagRepositoryInterface::class
+        TagRepositoryInterface::class,
+        SettingRepositoryInterface::class
     ];
 
     /**
@@ -60,6 +63,11 @@ class DatabaseServiceProvider extends AbstractServiceProvider
         $this->getContainer()->share(
             TagRepositoryInterface::class,
             $this->getContainer()->get('entityManager')->getRepository(Tag::class)
+        );
+
+        $this->getContainer()->share(
+            SettingRepositoryInterface::class,
+            $this->getContainer()->get('entityManager')->getRepository(Setting::class)
         );
     }
 }

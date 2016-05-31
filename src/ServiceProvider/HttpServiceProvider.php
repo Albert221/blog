@@ -2,10 +2,14 @@
 
 namespace Albert221\Blog\ServiceProvider;
 
+use Albert221\Blog\Controller\AbstractController;
+use Albert221\Blog\Controller\AbstractWidgetController;
 use Albert221\Blog\Controller\PostController;
 use Albert221\Blog\Repository\PostRepositoryInterface;
+use Albert221\Blog\Repository\SettingRepositoryInterface;
 use Albert221\Blog\Route\RouteCollection;
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
@@ -13,7 +17,7 @@ use Zend\Diactoros\Response\EmitterInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;
 
-class HttpServiceProvider extends AbstractServiceProvider
+class HttpServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -25,6 +29,16 @@ class HttpServiceProvider extends AbstractServiceProvider
         RouteCollection::class,
         PostController::class
     ];
+
+    public function boot()
+    {
+        $this->getContainer()->inflector(AbstractController::class)
+            ->invokeMethod('setTwig', ['twig'])
+            ->invokeMethod('setSettings', [SettingRepositoryInterface::class]);
+
+        $this->getContainer()->inflector(AbstractWidgetController::class)
+            ->invokeMethod('setWidgetExtension', ['twigWidgetExtension']);
+    }
 
     /**
      * {@inheritdoc}

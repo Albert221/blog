@@ -2,19 +2,17 @@
 
 namespace Albert221\Blog\ServiceProvider;
 
-use Albert221\Blog\Controller\AbstractController;
-use Albert221\Blog\Controller\AbstractWidgetController;
 use Albert221\Blog\Pagination\PaginatorBuilder;
 use Albert221\Blog\Repository\CategoryRepositoryInterface;
 use Albert221\Blog\Repository\PostRepositoryInterface;
+use Albert221\Blog\Repository\SettingRepositoryInterface;
 use Albert221\Blog\Repository\TagRepositoryInterface;
 use Albert221\Blog\Widget\TwigWidgetExtension;
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use League\Container\ServiceProvider\BootableServiceProviderInterface;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-class TwigServiceProvider extends AbstractServiceProvider implements BootableServiceProviderInterface
+class TwigServiceProvider extends AbstractServiceProvider
 {
     /**
      * {@inheritdoc}
@@ -24,15 +22,6 @@ class TwigServiceProvider extends AbstractServiceProvider implements BootableSer
         'twigWidgetExtension',
         'paginatorBuilder'
     ];
-
-    public function boot()
-    {
-        $this->getContainer()->inflector(AbstractController::class)
-            ->invokeMethod('setTwig', ['twig']);
-
-        $this->getContainer()->inflector(AbstractWidgetController::class)
-            ->invokeMethod('setWidgetExtension', ['twigWidgetExtension']);
-    }
 
     /**
      * {@inheritdoc}
@@ -52,7 +41,10 @@ class TwigServiceProvider extends AbstractServiceProvider implements BootableSer
                 $config['cache'] = sprintf('%s/cache/twig', $this->getContainer()->get('baseDir'));
             }
 
-            return new Twig_Environment($loader, $config);
+            $twig = new Twig_Environment($loader, $config);
+            $twig->addGlobal('settings', $this->getContainer()->get(SettingRepositoryInterface::class));
+
+            return $twig;
         });
         
         $this->getContainer()->share('twigWidgetExtension', function () {
@@ -67,7 +59,7 @@ class TwigServiceProvider extends AbstractServiceProvider implements BootableSer
         $this->getContainer()->share('paginatorBuilder', function () {
             return new PaginatorBuilder(
                 $this->getContainer()->get('twig'),
-                $this->getContainer()->get('config')['pagination']['perPage']
+                $this->getContainer()->get(SettingRepositoryInterface::class)['pagination.per_page']->getValue()
             );
         });
     }

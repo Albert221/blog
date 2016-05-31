@@ -2,6 +2,7 @@
 
 namespace Albert221\Blog\Controller;
 
+use Albert221\Blog\Repository\SettingRepositoryInterface;
 use Twig_Environment;
 
 abstract class AbstractController
@@ -12,11 +13,24 @@ abstract class AbstractController
     protected $twig;
 
     /**
-     * {@inheritdoc}
+     * @var SettingRepositoryInterface Settings
+     */
+    protected $settings;
+
+    /**
+     * @param Twig_Environment $twig
      */
     public function setTwig(Twig_Environment $twig)
     {
         $this->twig = $twig;
+    }
+
+    /**
+     * @param SettingRepositoryInterface $settings
+     */
+    public function setSettings(SettingRepositoryInterface $settings)
+    {
+        $this->settings = $settings;
     }
 
     /**
