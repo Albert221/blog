@@ -23,6 +23,6 @@ class PaginatorBuilderTest extends \PHPUnit_Framework_TestCase
         $paginator = $paginatorBuilder->build($request, $pages);
         
         $this->assertEquals($perPage, $paginator->getPerPage());
-        $this->assertEquals($page, $paginator->getPage());
+        $this->assertEquals($page, $paginator->getCurrentPage());
     }
 }
