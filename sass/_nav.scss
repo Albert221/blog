@@ -1,6 +1,9 @@
 .nav {
-	background: $primaryColor;
 	line-height: 60px;
+
+	@media (max-width: $mobileWidth) {
+		background: $primaryColor;
+	}
 
 	h2 {
 		@extend %hidden;
@@ -31,12 +34,13 @@
 				transition: .2s all;
 
 				&:hover, &:focus {
-					background: darken($primaryColor, 15%);
+					background: $primaryColor;
 				}
 
 				&.home {
-					@extend .fa, .fa-home, .fa-2x;
+					@extend .fa, .fa-home;
 					display: block;
+					font-size: 2em;
 					vertical-align: bottom;
 					line-height: 60px;
 				}

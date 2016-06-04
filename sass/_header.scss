@@ -1,8 +1,11 @@
+.header-image {
+	background: url('imgs/header-background.jpg') center 70%/cover;
+}
+
 .header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	background: url('imgs/header-background.jpg') center/cover;
 	color: #fff;
 
 	@media (max-width: $mobileWidth) {

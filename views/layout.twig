@@ -7,29 +7,31 @@
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-        <header class="header">
-            <div class="site-title">
-                <h1>{{ settings.website_name }}</h1>
-                <p class="subtitle">{{ settings.website_description }}</p>
-            </div>
-            <form action="/" method="get" class="search">
-                <label for="search">Szukana fraza</label>
-                <input type="search" id="search" name="q" placeholder="Co chcesz wyszukać..." value="{{ searchTerm|e }}" required>
-                <input type="submit" value="Szukaj">
-            </form>
-        </header>
-        <nav class="nav">
-            <h2>Nawigacja</h2>
-            <ul>
-                <li><a href="/" class="home" aria-label="Główna"></a></li>
-                <li><a href="#">Poradniki</a></li>
-                <li><a href="#">Relacje</a></li>
-                <li><a href="#">O mnie</a></li>
-                <li><a href="#">Kontakt</a></li>
-                <li class="spacer" aria-hidden="true"></li>
-                <li><a href="/rss" rel="alternate" type="application/rss+xml">RSS</a></li>
-            </ul>
-        </nav>
+    <div class="header-image">
+            <header class="header">
+                <div class="site-title">
+                    <h1>{{ settings.website_name }}</h1>
+                    <p class="subtitle">{{ settings.website_description }}</p>
+                </div>
+                <form action="/" method="get" class="search">
+                    <label for="search">Szukana fraza</label>
+                    <input type="search" id="search" name="q" placeholder="Co chcesz wyszukać..." value="{{ searchTerm|e }}" required>
+                    <input type="submit" value="Szukaj">
+                </form>
+            </header>
+            <nav class="nav">
+                <h2>Nawigacja</h2>
+                <ul>
+                    <li><a href="/" class="home" aria-label="Główna"></a></li>
+                    <li><a href="#">Poradniki</a></li>
+                    <li><a href="#">Relacje</a></li>
+                    <li><a href="#">O mnie</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                    <li class="spacer" aria-hidden="true"></li>
+                    <li><a href="/rss" rel="alternate" type="application/rss+xml">RSS</a></li>
+                </ul>
+            </nav>
+        </div>
         <div class="wrapper">
             <main class="main">
                 {% block content %}{% endblock %}
@@ -41,7 +43,7 @@
             <form action="?" method="post">
                 <label for="email">Adres email</label>
                 <input type="email" id="email" name="email" placeholder="Twój adres email" required>
-                <input type="submit" value="Zapisz się">
+                <button type="submit">Zapisz się</button>
             </form>
         </section>
         <footer class="footer">
@@ -55,7 +57,7 @@
         <script>
             WebFont.load({
                 google: {
-                    families: ['Open Sans:400,700,400italic,700italic:latin-ext']
+                    families: ['Droid Sans:400,700,400italic,700italic:latin-ext']
                 }
             });
         </script>

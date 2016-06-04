@@ -1,7 +1,29 @@
 @import 'extends';
 @import 'variables';
 
-@import 'font-awesome/font-awesome';
+/*!
+ *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+@import "font-awesome/variables";
+@import "font-awesome/mixins";
+@import "font-awesome/path";
+@import "font-awesome/core";
+@import "font-awesome/animated";
+@import "font-awesome/icons";
+
+/**
+ * HINT.css is a tooltip library made in pure CSS.
+ *
+ * Release under The MIT License
+ */
+@import "hint.css/hint-variables";
+@import "hint.css/hint-mixins";
+@import "hint.css/hint-core";
+@import "hint.css/hint-position";
+@import "hint.css/hint-theme";
+@import "hint.css/hint-color-types";
+@import "hint.css/hint-always";
 
 @import 'header';
 @import 'nav';
@@ -21,7 +43,7 @@ html {
 	box-sizing: border-box;
 	background: #f3f3f3;
 	color: #333;
-	font: 15px 'Open Sans', Arial, sans-serif;
+	font: 15px 'Droid Sans', Arial, sans-serif;
 }
 
 body {
