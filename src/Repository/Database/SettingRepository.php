@@ -44,12 +44,13 @@ class SettingRepository extends EntityRepository implements SettingRepositoryInt
 
     protected function loadSettings()
     {
-        $settings = [];
+        $settings = $this->findAll();
+        $newSettings = [];
 
-        array_walk($this->findAll(), function (Setting $setting) use (&$settings) {
-            $settings[$setting->getName()] = $setting;
+        array_walk($settings, function (Setting $setting) use (&$newSettings) {
+            $newSettings[$setting->getName()] = $setting;
         });
 
-        $this->settings = $settings;
+        $this->settings = $newSettings;
     }
 }
