@@ -3,6 +3,7 @@
 namespace Albert221\Blog\Repository;
 
 use Albert221\Blog\Entity\Post;
+use Doctrine\Common\Collections\Criteria;
 
 interface PostRepositoryInterface
 {
@@ -10,13 +11,12 @@ interface PostRepositoryInterface
      * @return int
      */
     public function count();
-    
+
     /**
-     * @param int $page
-     * @param int $perPage
+     * @param Criteria $criteria
      * @return Post[]
      */
-    public function paginated($page, $perPage);
+    public function paginated(Criteria $criteria);
 
     /**
      * @param string $slug
@@ -29,14 +29,13 @@ interface PostRepositoryInterface
      * @return int
      */
     public function byCategoryCount($slug);
-    
+
     /**
      * @param string $slug
-     * @param int $page
-     * @param int $perPage
+     * @param Criteria $criteria
      * @return Post[]
      */
-    public function byCategory($slug, $page, $perPage);
+    public function byCategory($slug, Criteria $criteria);
 
     /**
      * @param string $slug
@@ -46,11 +45,10 @@ interface PostRepositoryInterface
 
     /**
      * @param string $slug
-     * @param int $page
-     * @param int $perPage
+     * @param Criteria $criteria
      * @return Post[]
      */
-    public function byTag($slug, $page, $perPage);
+    public function byTag($slug, Criteria $criteria);
 
     /**
      * @param string $term
@@ -62,11 +60,10 @@ interface PostRepositoryInterface
      * Searches for term in title and content respectively.
      *
      * @param string $term
-     * @param int $page
-     * @param int $perPage
+     * @param Criteria $criteria
      * @return Post[]
      */
-    public function search($term, $page, $perPage);
+    public function search($term, Criteria $criteria);
 
     /**
      * @param Post $post

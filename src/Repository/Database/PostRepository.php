@@ -4,6 +4,7 @@ namespace Albert221\Blog\Repository\Database;
 
 use Albert221\Blog\Entity\Post;
 use Albert221\Blog\Repository\PostRepositoryInterface;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 class PostRepository extends EntityRepository implements PostRepositoryInterface
@@ -23,14 +24,11 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function paginated($page, $perPage)
+    public function paginated(Criteria $criteria)
     {
-        $first = ($page - 1) * $perPage;
-
         $query = $this->createQueryBuilder('p')
             ->orderBy('p.published_at', 'DESC')
-            ->setFirstResult($first)
-            ->setMaxResults($perPage)
+            ->addCriteria($criteria)
             ->getQuery();
 
         return $query->getResult();
@@ -63,18 +61,15 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function byCategory($slug, $page, $perPage)
+    public function byCategory($slug, Criteria $criteria)
     {
-        $first = ($page - 1) * $perPage;
-        
         $qb = $this->createQueryBuilder('p');
 
         $query = $qb->join('p.category', 'c')
             ->where($qb->expr()->eq('c.slug', ':category'))
             ->setParameter(':category', $slug)
             ->orderBy('p.published_at', 'DESC')
-            ->setFirstResult($first)
-            ->setMaxResults($perPage)
+            ->addCriteria($criteria)
             ->getQuery();
 
         return $query->getResult();
@@ -96,18 +91,15 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function byTag($slug, $page, $perPage)
+    public function byTag($slug, Criteria $criteria)
     {
-        $first = ($page - 1) * $perPage;
-
         $qb = $this->createQueryBuilder('p');
 
         $query = $qb->join('p.tags', 't')
             ->where($qb->expr()->eq('t.slug', ':tag'))
             ->setParameter(':tag', $slug)
             ->orderBy('p.published_at', 'DESC')
-            ->setFirstResult($first)
-            ->setMaxResults($perPage)
+            ->addCriteria($criteria)
             ->getQuery();
 
         return $query->getResult();
@@ -130,10 +122,8 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function search($term, $page, $perPage)
+    public function search($term, Criteria $criteria)
     {
-        $first = ($page - 1) * $perPage;
-
         $query = $this->createQueryBuilder('p')
             ->select(
                 'p as post',
@@ -144,8 +134,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
             ->orderBy('title_relevance', 'DESC')
             ->addOrderBy('relevance', 'DESC')
             ->setParameter(':term', $term)
-            ->setFirstResult($first)
-            ->setMaxResults($perPage)
+            ->addCriteria($criteria)
             ->getQuery();
 
         $result = $query->getResult();

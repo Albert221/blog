@@ -7,15 +7,25 @@ use Psr\Http\Message\ServerRequestInterface;
 class PaginatorBuilder
 {
     private $twig;
-    
     private $perPage;
 
+    /**
+     * PaginatorBuilder constructor.
+     *
+     * @param \Twig_Environment $twig
+     * @param int $perPage
+     */
     public function __construct(\Twig_Environment $twig, $perPage)
     {
         $this->twig = $twig;
         $this->perPage = $perPage;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param int $count
+     * @return Paginator
+     */
     public function build(ServerRequestInterface $request, $count)
     {
         $page = isset($request->getQueryParams()['page']) &&
@@ -24,7 +34,7 @@ class PaginatorBuilder
         return new Paginator(
             $page,
             $this->perPage,
-            ceil($count / $this->perPage),
+            $count,
             $this->twig
         );
     }

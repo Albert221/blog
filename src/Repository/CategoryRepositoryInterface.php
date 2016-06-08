@@ -3,6 +3,7 @@
 namespace Albert221\Blog\Repository;
 
 use Albert221\Blog\Entity\Category;
+use Doctrine\Common\Collections\Criteria;
 
 interface CategoryRepositoryInterface
 {
@@ -12,11 +13,10 @@ interface CategoryRepositoryInterface
     public function count();
 
     /**
-     * @param int $page
-     * @param int $perPage
+     * @param Criteria $criteria
      * @return Category[]
      */
-    public function paginated($page, $perPage);
+    public function paginated(Criteria $criteria);
 
     /**
      * @param int $count

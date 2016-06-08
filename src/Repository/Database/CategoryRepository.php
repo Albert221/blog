@@ -3,6 +3,7 @@
 namespace Albert221\Blog\Repository\Database;
 
 use Albert221\Blog\Repository\CategoryRepositoryInterface;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 class CategoryRepository extends EntityRepository implements CategoryRepositoryInterface
@@ -16,13 +17,10 @@ class CategoryRepository extends EntityRepository implements CategoryRepositoryI
         return $query->getSingleScalarResult();
     }
 
-    public function paginated($page, $perPage)
+    public function paginated(Criteria $criteria)
     {
-        $first = ($page - 1) * $perPage;
-
         $query = $this->createQueryBuilder('c')
-            ->setFirstResult($first)
-            ->setMaxResults($perPage)
+            ->addCriteria($criteria)
             ->getQuery();
 
         return $query->getResult();

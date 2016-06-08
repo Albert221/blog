@@ -15,14 +15,32 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function testRender()
+    /**
+     * @dataProvider constructorProvider
+     */
+    public function testRender($page, $perPage, $count)
     {
-        $page = 1;
-        $perPage = 5;
-        $pages = 11;
+        $paginator = new Paginator($page, $perPage, $count, $this->twig);
         
-        $paginator = new Paginator($page, $perPage, $pages, $this->twig);
+        $this->assertEquals($paginator->render(), $page.' '.$perPage.' '.ceil($count / $perPage));
+    }
+
+    /**
+     * @dataProvider constructorProvider
+     */
+    public function testCriteria($page, $perPage, $count)
+    {
+        $paginator = new Paginator($page, $perPage, $count, $this->twig);
+        $criteria = $paginator->getCriteria();
         
-        $this->assertEquals($paginator->render(), $page.' '.$perPage.' '.$pages);
+        $this->assertEquals(($page - 1) * $perPage, $criteria->getFirstResult());
+        $this->assertEquals($count, $criteria->getMaxResults());
+    }
+
+    public function constructorProvider()
+    {
+        return [
+            [1, 5, 11]
+        ];
     }
 }

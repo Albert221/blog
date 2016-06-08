@@ -3,6 +3,7 @@
 namespace Albert221\Blog\Repository\Database;
 
 use Albert221\Blog\Repository\TagRepositoryInterface;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 class TagRepository extends EntityRepository implements TagRepositoryInterface
@@ -10,13 +11,10 @@ class TagRepository extends EntityRepository implements TagRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function paginated($page, $perPage)
+    public function paginated(Criteria $criteria)
     {
-        $first = ($page - 1) * $perPage;
-
         $query = $this->createQueryBuilder('t')
-            ->setFirstResult($first)
-            ->setMaxResults($perPage)
+            ->addCriteria($criteria)
             ->getQuery();
 
         return $query->getResult();

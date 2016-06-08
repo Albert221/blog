@@ -3,6 +3,7 @@
 namespace Albert221\Blog\Widget;
 
 use Albert221\Blog\Repository\TagRepositoryInterface;
+use Doctrine\Common\Collections\Criteria;
 use Twig_Environment;
 
 class TagCloud implements WidgetInterface
@@ -30,7 +31,10 @@ class TagCloud implements WidgetInterface
 
     public function getHTML()
     {
-        $tags = $this->tags->paginated(1, 50);
+        $criteria = Criteria::create()
+            ->setMaxResults(50);
+        
+        $tags = $this->tags->paginated($criteria);
         
         return $this->twig->render('widgets/tag_cloud.twig', compact('tags'));
     }

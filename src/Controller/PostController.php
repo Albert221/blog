@@ -45,7 +45,7 @@ class PostController extends AbstractWidgetController
 
         $paginator = $this->paginatorBuilder->build($request, $this->posts->count());
 
-        $posts = $this->posts->paginated($paginator->getCurrentPage(), $paginator->getPerPage());
+        $posts = $this->posts->paginated($paginator->getCriteria());
 
         return $this->view('index.twig', compact('posts', 'paginator'));
     }
@@ -83,7 +83,7 @@ class PostController extends AbstractWidgetController
 
         $paginator = $this->paginatorBuilder->build($request, $this->posts->byCategoryCount($slug));
 
-        $posts = $this->posts->byCategory($slug, $paginator->getCurrentPage(), $paginator->getPerPage());
+        $posts = $this->posts->byCategory($slug, $paginator->getCriteria());
 
         return $this->view('index.twig', [
             'posts' => $posts,
@@ -105,7 +105,7 @@ class PostController extends AbstractWidgetController
 
         $paginator = $this->paginatorBuilder->build($request, $this->posts->byTagCount($slug));
 
-        $posts = $this->posts->byTag($slug, $paginator->getCurrentPage(), $paginator->getPerPage());
+        $posts = $this->posts->byTag($slug, $paginator->getCriteria());
 
         return $this->view('index.twig', [
             'posts' => $posts,
@@ -125,7 +125,7 @@ class PostController extends AbstractWidgetController
     {
         $paginator = $this->paginatorBuilder->build($request, $this->posts->searchCount($term));
 
-        $posts = $this->posts->search($term, $paginator->getCurrentPage(), $paginator->getPerPage());
+        $posts = $this->posts->search($term, $paginator->getCriteria());
 
         return $this->view('index.twig', [
             'posts' => $posts,

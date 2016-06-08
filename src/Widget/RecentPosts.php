@@ -3,6 +3,7 @@
 namespace Albert221\Blog\Widget;
 
 use Albert221\Blog\Repository\PostRepositoryInterface;
+use Doctrine\Common\Collections\Criteria;
 use Twig_Environment;
 
 class RecentPosts implements WidgetInterface
@@ -36,7 +37,10 @@ class RecentPosts implements WidgetInterface
 
     public function getHTML()
     {
-        $posts = $this->posts->paginated(1, $this->count);
+        $criteria = Criteria::create()
+            ->setMaxResults($this->count);
+
+        $posts = $this->posts->paginated($criteria);
 
         return $this->twig->render('widgets/recent_posts.twig', compact('posts'));
     }
