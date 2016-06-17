@@ -5,15 +5,11 @@ use Doctrine\ORM\Tools\Setup;
 
 require 'vendor/autoload.php';
 
-$config = Setup::createAnnotationMetadataConfiguration([__DIR__.'/src'], true); // Second argument - debug
+$config = require 'config/config.php';
 
-$entityManager = EntityManager::create([
-    'dbname' => 'blog',
-    'user' => 'root',
-    'password' => '',
-    'host' => 'localhost',
-    'charset' => 'utf8',
-    'driver' => 'pdo_mysql'
-], $config);
+$configConnection = $config['database'];
+$config = Setup::createAnnotationMetadataConfiguration([__DIR__.'/src'], $config['debug']); // Second argument - debug
+
+$entityManager = EntityManager::create($configConnection, $config);
 
 return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);

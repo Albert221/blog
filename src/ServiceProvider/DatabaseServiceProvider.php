@@ -40,14 +40,9 @@ class DatabaseServiceProvider extends AbstractServiceProvider
             );
             $config->addCustomStringFunction('MATCH', MatchAgainst::class);
 
-            return EntityManager::create([
-                'dbname' => 'blog',
-                'user' => 'root',
-                'password' => '',
-                'host' => 'localhost',
-                'charset' => 'utf8',
-                'driver' => 'pdo_mysql'
-            ], $config);
+            $connectionConfig = $this->getContainer()->get('config')['database'];
+
+            return EntityManager::create($connectionConfig, $config);
         });
 
         $this->getContainer()->share(
