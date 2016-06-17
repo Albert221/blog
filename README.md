@@ -14,7 +14,7 @@ Just simple blog engine.
 Via Composer
 
 ``` bash
-$ composer require Albert221/blog
+$ composer create-project Albert221/blog
 ```
 
 ## Change log

@@ -1,0 +1,111 @@
+.post {
+    header {
+        margin-bottom: 15px;
+        color: #999;
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 32px;
+
+            a {
+                display: inline-block;
+                padding: 10px 15px;
+                background: $primaryColor;
+                color: #fff;
+                text-decoration: none;
+                transition: all .2s;
+
+                &:hover {
+                    background: darken($primaryColor, 15%);
+                }
+            }
+        }
+    }
+
+    .content {
+        @extend %clearfix;
+        font-size: 16px;
+
+        *:not(:first-child):not(li):not(.gist-meta) {
+            margin-top: 15px;
+        }
+
+        h3 {
+            font-size: 28px;
+        }
+
+        h4 {
+            font-size: 24px;
+        }
+
+        h5 {
+            font-size: 20px;
+        }
+
+        h6 {
+            font-size: 16px;
+        }
+
+        p {
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .float {
+            &-left {
+                float: left;
+                margin: 15px 15px 15px 0;
+            }
+
+            &-right {
+                float: right;
+                margin: 15px 0 15px 15px;
+            }
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #eee;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: .2s all;
+
+            &:hover, &:focus {
+                background: $primaryColor;
+                color: #fff;
+            }
+        }
+    }
+
+    .tags {
+        h2 {
+            margin: 50px 0 15px;
+        }
+
+        ul {
+            list-style: none;
+
+            li {
+                display: inline;
+
+                a {
+                    &:before {
+                        content: "#";
+                    }
+                }
+            }
+        }
+    }
+
+    .comments {
+        margin-top: 15px;
+
+        h2 {
+            @extend %hidden;
+        }
+    }
+}

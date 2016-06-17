@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <title>Blog Alberta</title>
+        <title>{% block title %}Blog Alberta{% endblock %}</title>
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
@@ -50,16 +50,18 @@
             {% include 'parts/footer.twig' %}
             <p class="foot">
                 <span>&copy; Albert Wolszon, 2016.</span>
-                <span>Powered by <a href="https://github.com/Albert221/blog">my own blog engine</a>.</span>
+                <span>Napędzane przez <a href="https://github.com/Albert221/blog">mój własny silnik</a>.</span>
             </p>
         </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-        <script>
-            WebFont.load({
-                google: {
-                    families: ['Droid Sans:400,700,400italic,700italic:latin-ext']
-                }
-            });
-        </script>
+            {% block scripts %}
+                <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+                <script>
+                    WebFont.load({
+                        google: {
+                            families: ['Droid Sans:400,700,400italic,700italic:latin-ext']
+                        }
+                    });
+                </script>
+            {% endblock %}
     </body>
 </html>

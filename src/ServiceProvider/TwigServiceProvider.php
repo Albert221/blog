@@ -9,6 +9,7 @@ use Albert221\Blog\Repository\SettingRepositoryInterface;
 use Albert221\Blog\Repository\TagRepositoryInterface;
 use Albert221\Blog\Widget\TwigWidgetExtension;
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use Psr\Http\Message\ServerRequestInterface;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
@@ -43,6 +44,10 @@ class TwigServiceProvider extends AbstractServiceProvider
 
             $twig = new Twig_Environment($loader, $config);
             $twig->addGlobal('settings', $this->getContainer()->get(SettingRepositoryInterface::class));
+
+            $currentUrl = $this->getContainer()->get(ServerRequestInterface::class)
+                ->getUri()->withFragment('')->withQuery('');
+            $twig->addGlobal('currentUrl', $currentUrl);
 
             return $twig;
         });

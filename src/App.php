@@ -59,11 +59,7 @@ class App
         /** @var EmitterInterface $emitter */
         $emitter = $this->container->get(EmitterInterface::class);
 
-        try {
-            $response = $route->dispatch($request, $response);
-        } catch (NotFoundException $e) {
-            $response = new Response\RedirectResponse('/404');
-        }
+        $response = $route->dispatch($request, $response);
 
         $emitter->emit($response);
     }

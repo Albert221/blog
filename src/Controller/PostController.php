@@ -7,6 +7,7 @@ use Albert221\Blog\Repository\PostRepositoryInterface;
 use League\Route\Http\Exception\NotFoundException;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Request;
+use Zend\Diactoros\Response;
 
 class PostController extends AbstractWidgetController
 {
@@ -64,7 +65,7 @@ class PostController extends AbstractWidgetController
         $post = $this->posts->bySlug($slug);
 
         if (!$post) {
-            throw new NotFoundException('Post has not been found');
+            return $this->notFound();
         }
         
         return $this->view('post.twig', compact('post'));
@@ -84,6 +85,10 @@ class PostController extends AbstractWidgetController
         $paginator = $this->paginatorBuilder->build($request, $this->posts->byCategoryCount($slug));
 
         $posts = $this->posts->byCategory($slug, $paginator->getCriteria());
+        
+        if (empty($posts)) {
+            return $this->notFound();
+        }
 
         return $this->view('index.twig', [
             'posts' => $posts,
@@ -123,6 +128,8 @@ class PostController extends AbstractWidgetController
      */
     public function search(ServerRequestInterface $request, $term)
     {
+        $this->provideWidgets();
+
         $paginator = $this->paginatorBuilder->build($request, $this->posts->searchCount($term));
 
         $posts = $this->posts->search($term, $paginator->getCriteria());
@@ -133,5 +140,12 @@ class PostController extends AbstractWidgetController
             'title' => 'Wyniki wyszukiwania dla \''.$term.'\'',
             'searchTerm' => $term
         ]);
+    }
+
+    protected function notFound()
+    {
+        $this->provideWidgets();
+
+        return new Response\HtmlResponse($this->view('not_found.twig'), 404);
     }
 }

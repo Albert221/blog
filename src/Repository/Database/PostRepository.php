@@ -81,7 +81,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
 
         $query = $qb->select('count(p.id)')
             ->join('p.tags', 't')
-            ->where($qb->expr()->eq('t.slug', ':tag'))
+            ->where($qb->expr()->eq('t.name', ':tag'))
             ->setParameter(':tag', $slug)
             ->getQuery();
 
@@ -96,7 +96,7 @@ class PostRepository extends EntityRepository implements PostRepositoryInterface
         $qb = $this->createQueryBuilder('p');
 
         $query = $qb->join('p.tags', 't')
-            ->where($qb->expr()->eq('t.slug', ':tag'))
+            ->where($qb->expr()->eq('t.name', ':tag'))
             ->setParameter(':tag', $slug)
             ->orderBy('p.published_at', 'DESC')
             ->addCriteria($criteria)

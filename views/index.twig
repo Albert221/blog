@@ -1,5 +1,12 @@
 {% extends 'layout.twig' %}
 
+{% block title %}
+    {% if title is defined %}
+        {{ title }} •
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
     {% if title is defined %}
         <h2>{{ title }}</h2>
@@ -9,7 +16,8 @@
             <header>
                 <h2><a href="/{{ post.slug }}">{{ post.title|e }}</a></h2>
                 <time datetime="{{ post.publishedAt|date('c') }}">{{ post.publishedAt|date('j F Y') }}</time> •
-                <a href="/kategoria/{{ post.category.slug }}">{{ post.category.name }}</a>
+                <a href="/kategoria/{{ post.category.slug }}">{{ post.category.name }}</a> •
+                <span class="disqus-comment-count" data-disqus-identifier="{{ post.id }}">komentarze</span>
             </header>
             <div class="content">
                 {{ post.shortContent }}
@@ -20,4 +28,9 @@
         <p>Nie znaleziono żadnych postów :(</p>
     {% endfor %}
     {{ paginator.render() }}
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
 {% endblock %}

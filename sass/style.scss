@@ -12,9 +12,8 @@
 @import "font-awesome/animated";
 @import "font-awesome/icons";
 
-/**
+/**!
  * HINT.css is a tooltip library made in pure CSS.
- *
  * Release under The MIT License
  */
 @import "hint.css/hint-variables";
@@ -28,6 +27,7 @@
 @import 'header';
 @import 'nav';
 @import 'main';
+@import 'post';
 @import 'pagination';
 @import 'sidebar';
 @import 'newsletter';

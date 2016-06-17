@@ -17,15 +17,9 @@ class Tag
 
     /**
      * @var string Name
-     * @Column(type="string")
-     */
-    protected $name;
-
-    /**
-     * @var string Slug
      * @Column(type="string", unique=true)
      */
-    protected $slug;
+    protected $name;
 
     /**
      * @var ArrayCollection Posts
@@ -51,16 +45,6 @@ class Tag
     public function setName($name)
     {
         $this->name = $name;
-    }
-
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
     }
 
     public function getPosts()
