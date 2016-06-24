@@ -1,67 +1,78 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-        <title>{% block title %}Blog Alberta{% endblock %}</title>
-        <link rel="stylesheet" href="/style.css">
-    </head>
-    <body>
-    <div class="header-image">
-            <header class="header">
-                <div class="site-title">
-                    <h1>{{ settings.website_name }}</h1>
-                    <p class="subtitle">{{ settings.website_description }}</p>
-                </div>
-                <form action="/" method="get" class="search">
-                    <label for="search">Szukana fraza</label>
-                    <input type="search" id="search" name="q" placeholder="Co chcesz wyszukać..." value="{{ searchTerm|e }}" required>
-                    <input type="submit" value="Szukaj">
-                </form>
-            </header>
-            <nav class="nav">
-                <h2>Nawigacja</h2>
-                <ul>
-                    <li><a href="/" class="home" aria-label="Główna"></a></li>
-                    <li><a href="#">Poradniki</a></li>
-                    <li><a href="#">Relacje</a></li>
-                    <li><a href="#">O mnie</a></li>
-                    <li><a href="#">Kontakt</a></li>
-                    <li class="spacer" aria-hidden="true"></li>
-                    <li><a href="/rss" rel="alternate" type="application/rss+xml">RSS</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="wrapper">
-            <main class="main">
-                {% block content %}{% endblock %}
-            </main>
-            {% include 'parts/sidebar.twig' %}
-        </div>
-        <section class="newsletter">
-            <h2>Zapisz się do newslettera:</h2>
-            <form action="?" method="post">
-                <label for="email">Adres email</label>
-                <input type="email" id="email" name="email" placeholder="Twój adres email" required>
-                <button type="submit">Zapisz się</button>
-            </form>
-        </section>
-        <footer class="footer">
-            {% include 'parts/footer.twig' %}
-            <p class="foot">
-                <span>&copy; Albert Wolszon, 2016.</span>
-                <span>Napędzane przez <a href="https://github.com/Albert221/blog">mój własny silnik</a>.</span>
-            </p>
-        </footer>
-            {% block scripts %}
-                <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-                <script>
-                    WebFont.load({
-                        google: {
-                            families: ['Droid Sans:400,700,400italic,700italic:latin-ext']
-                        }
-                    });
-                </script>
-            {% endblock %}
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>{% block title %}Blog Alberta{% endblock %}</title>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+        {% if settings.google_analytics is not empty %}{# TODO: Move to a separate plugin #}
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', '{{ settings.google_analytics }}', 'auto');
+                ga('send', 'pageview');
+            </script>
+        {% endif %}
+		<div class="header-image">
+			<header class="header">
+				<div class="site-title">
+					<h1>{{ settings.website_name }}</h1>
+					<p class="subtitle">{{ settings.website_description }}</p>
+				</div>
+				<form action="/" method="get" class="search">
+					<label for="search">Szukana fraza</label>
+					<input type="search" id="search" name="q" placeholder="Co chcesz wyszukać..." value="{{ searchTerm|e }}" required>
+					<input type="submit" value="Szukaj">
+				</form>
+			</header>
+			<nav class="nav">
+				<h2>Nawigacja</h2>
+				<ul>
+					<li><a href="/" class="home" aria-label="Główna"></a></li>
+					<li><a href="#">Poradniki</a></li>
+					<li><a href="#">Relacje</a></li>
+					<li><a href="#">O mnie</a></li>
+					<li><a href="#">Kontakt</a></li>
+					<li class="spacer" aria-hidden="true"></li>
+					<li><a href="/rss" rel="alternate" type="application/rss+xml">RSS</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="wrapper">
+			<main class="main">
+				{% block content %}{% endblock %}
+			</main>
+			{% include 'parts/sidebar.twig' %}
+		</div>
+		<section class="newsletter">
+			<h2>Zapisz się do newslettera:</h2>
+			<form action="?" method="post">
+				<label for="email">Adres email</label>
+				<input type="email" id="email" name="email" placeholder="Twój adres email" required>
+				<button type="submit">Zapisz się</button>
+			</form>
+		</section>
+		<footer class="footer">
+			{% include 'parts/footer.twig' %}
+			<p class="foot">
+				<span>&copy; Albert Wolszon, 2016.</span>
+				<span>Napędzane przez <a href="https://github.com/Albert221/blog">mój własny silnik</a>.</span>
+			</p>
+		</footer>
+		{% block scripts %}
+			<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+			<script>
+				WebFont.load({
+					google: {
+						families: ['Droid Sans:400,700,400italic,700italic:latin-ext']
+					}
+				});
+			</script>
+		{% endblock %}
+	</body>
 </html>
